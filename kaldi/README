@@ -1,0 +1,5 @@
+Install Kaldi as suggested in https://github.com/kaldi-asr/kaldi.
+	- Substitute ivector-plda-scoring.cc in src/ivectorbin dirctory with the provided one (the modified version can store Xvectors after PLDA projection in a file)
+	- Please note to compile with GPU, set parameter --use-cuda, --cudatk-dir to corresponding values when running ./configure --shared in kaldi/src directory.
+
+Copy all scripts to egs/voxceleb/v2 directory and corresponding subdirectory (e.g. files in local/ should be copied to egs/voxceleb/v2/local). Replace egs/voxceleb/v2/cmd.sh with the provided one.

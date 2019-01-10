@@ -1,0 +1,239 @@
+base_conf:
+    origin_data_path: origin_data
+    middle_data_path: middle_data
+    single_meeting_middle_data_path: single_meeting_middle_data
+    mtcnn_origin_data_path: mtcnn
+    model_path: models
+    multiple_meeting_data_path: multiple_meeting_data
+    true_data_path: true_data
+    gpu_num: 1
+    fig_base: ../../../fig
+    data_base: ../../../data
+
+filter_people:
+    - andrew
+
+mac_name:
+    '60:f1:89:84:47:be': houjianfeng
+    '54:9f:13:f8:7e': weizengni
+    '40:4e:36:27:93:2e': kanxuan
+    '3c:2e:f9:a1:8e:73': cuihejie
+    'b0:19:c6:65:b6:a8': cunxuantang
+    '94:65:2d:21:2e:dd': qianyu
+    '98:10:e8:67:3c:30': ouyangjunpeng
+    '20:47:da:b6:5f:fa': qinyidan
+    '04:f1:28:5d:ab:13': fengxialing
+    '78:02:f8:fd:eb:1a': xietian
+    'a8:be:27:bd:3a:06': guanguan
+
+    'd8:bb:2c:ee:ba:f2': bo
+    '48:a1:95:4a:73:1e': changhao
+    'd0:2b:20:f2:c5:e5': linhai
+    '54:9f:13:02:7b:1d': linhai
+    '6c:4d:73:eb:91:7c': xiaoxuan
+    '54:ae:27:bb:19:5d': xiaoxuan
+    'e0:c7:67:d4:7d:c4': rosa
+    '90:e7:c4:e7:20:05': risqi
+    '98:fe:94:ec:6f:8f': risqi
+    '9c:e3:3f:6f:09:be': shuyu
+    '5c:a8:6a:24:e1:dc': shuyu
+    '48:bf:6b:33:22:c2': hongkai
+    '80:7a:bf:70:4b:bc': ar
+    '90:b0:ed:74:c8:80': zihang
+    '5c:09:47:a2:ca:92': zihang
+    '1c:36:bb:b7:93:a8': zhihua
+    'e8:50:8b:23:fa:79': alex
+    '48:5a:3f:67:0c:72': niki
+    '80:58:f8:ff:02:02': andrew
+    '84:9f:b5:8c:36:63': prince
+    '88:6b:6e:0f:fa:f6': prince
+    '70:70:0D:63:8c:07': jiarui
+    '90:e7:c4:e7:1f:bc': dongge
+    'a8:be:27:99:05:1d': peijun
+    '64:a2:f9:18:71:19': milad
+    'd0:2b:20:e4:10:f7': joe
+    '58:48:22:7f:ce:87': mike
+    '40:33:1a:23:01:f7': cat
+    '70:70:0d:ef:2d:15': javier
+    '48:bf:6b:41:e8:e0': lane
+    'dc:d9:16:cf:55:8b': pedro
+    '7c:04:d0:c7:1f:2e': wei
+    'bc:4c:c4:4e:96:04': johan
+    'c0:bd:d1:26:20:50': jack
+    'e8:50:8b:8f:af:e7': yasin
+    '18:65:90:e0:ae:65': ben
+    '84:41:67:26:2a:d6': wendy
+    '34:08:bc:19:89:bf': ambie
+    'f8:62:14:49:b9:19': jenny
+    '50:8f:4c:f5:c5:42': bowen
+    '00:b3:62:0f:58:0b': sec
+
+
+pre_process:
+    refresh: true
+    show_pic: true
+    mtcnn_threshold:
+        - 0.7
+        - 0.7
+        - 0.9
+    mtcnn_model_path: mtcnn
+    opencv_model_path: opencv
+    image_size: 160
+    mtcnn_mini_size: 40
+    mtcnn_factor: 0.709
+    wifi_threshold: -55
+    wifi_time_interval: 5
+    # every pre_process only act on one date; set it to 0 then all video diff are processed
+    date_to_process: 03-30
+
+
+feature_extraction_classifier:
+    refresh: false
+    # 0 or not give: according to the wifi information
+    meeting_people_num:
+        1: 0
+    piece_num: 1000
+    facenet_model_path: 20180402-114759.pb
+    dbscan_min_sample: 5
+
+
+get_meeting_data:
+    start_time: 04-5-8-00
+    end_time: 10-22-12-00
+    duration_time: 180
+
+context_information:
+    hyper_para:
+      - 0.15
+
+specs:
+    set_gpu: True
+    send_email: True
+    send_finish_email: True
+    send_one_round: False
+    sender: sensor.networks.ox@gmail.com
+    receiver: sensor.networks.ox@gmail.com
+
+model_map:
+    128: 4_2_512/model-20170511-185253.ckpt-80000
+    512: 4_2_512/model-20180402-114759.ckpt-275
+
+recognition:
+    train_dir: /home/chris/Dropbox/video_scan/data/2018/god_train
+    test_dir: /home/chris/Dropbox/video_scan/data/2017/god_train
+    ext_model: /home/chris/Documents/key_models/oxford/god_train.pb
+
+draw:
+    conf_mat:
+        truth_folder: eval/assoc/oxford
+        pred_folder: eval/assoc/oxford
+        save_folder: tongji
+        pred_file: 2018-05-03-10-01-11
+
+    metrics:
+      truth_folder: eval/assoc
+      pred_folder: eval/assoc/
+      site: oxford
+      exploration: False
+      explo_data: 2018
+      compare: True
+      methods:
+          tongji:
+            TM: tm
+            OA: 2018-05-05-16-10-15
+            DT: 2018-05-05-19-23-36
+            AutoTune: 2018-05-07-04-42-03
+#            AutoTune: 2018-05-03-10-01-11
+#            UB: 2018-05-08-00-29-39
+          oxford:
+            TM: tm
+            OA: 2018-04-28-20-02-58
+            DT: 2018-04-28-03-41-24
+#            AutoTune: 2018-04-29-02-24-13
+            AutoTune: 2018-04-29-00-49-24
+#            UB: 2018-05-07-20-45-53
+
+      pred_file: 2018-05-03-10-01-11
+
+
+    errors:
+        report: eval/assoc
+        truth_folder: true_label
+        site: cmu
+        methods:
+#            - DT
+            - AutoTune
+        # err_type: 1 - wifi, 2 - video, 3 - face
+        err_type: 0
+        err_map:
+            0: '# of subjects'
+            1: 'False Alarm Rate'
+            2: 'False Alarm Rate'
+            3: '# of non-POI'
+            4: 'Hybrid Error Rate'
+        thres:
+            0: 0.01
+            1: 0.012
+            2: 0.012
+            3: 0.012
+
+    infer:
+        folder: eval/infer
+        site: tongji
+        methods:
+            - OA
+            - AutoTune
+            - DT
+            - TM
+    cm_infer:
+      folder: eval/infer
+      site: tongji
+      methods:
+            - OA
+            - AutoTune
+            - DT
+            - TM
+
+    cmc:
+        folder: eval/infer
+        site: oxford
+        methods:
+            - OA
+            - AutoTune
+            - DT
+            - TM
+
+    hyper:
+        truth_folder: eval/hyper
+        pred_folder: eval/hyper
+        site: tongji
+        style: 1
+        remove:
+            - '1'
+            - '0.25'
+        # fuzzier and error_rate
+        para: fuzzier
+        thres:
+            tongji: 0.009
+            oxford: 0.01
+        hyper_map:
+            fuzzier: 'fuzzifier'
+            error_rate: 'error_rate'
+
+    span:
+        truth_folder: eval/span
+        pred_folder: eval/span
+        site: tongji
+        remove:
+            - 'null'
+        # fuzzier and error_rate
+        para: span
+        thres:
+            tongji: 0.009
+            oxford: 0.01
+
+    tsne:
+        site: 2018/god_train
+        model_base: eval/hyper/oxford/fuzzier_3
+        perplexity: 50
+        num_to_show: 50
