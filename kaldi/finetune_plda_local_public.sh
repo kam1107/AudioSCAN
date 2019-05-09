@@ -14,9 +14,6 @@ new_plda_dir=exp/local_plda_50vs20_PLM_soft_scan_100
 rm -rf data/50vs20_PLM_soft_scan_100_voting
 local/make_synth_voting.pl $voting_root data/50vs20_PLM_soft_scan_100_voting
 
-###combine associated data with the original PLDA training data
-rm -rf data/plda_tune
-utils/combine_data.sh data/plda_tune $orig_plda_data_dir data/voting
 
 # Make MFCCs and compute the energy-based VAD for each dataset
 steps/make_mfcc.sh --write-utt2num-frames true --mfcc-config conf/mfcc.conf --nj 10 --cmd "$train_cmd" \
@@ -28,7 +25,7 @@ sid/compute_vad_decision.sh --nj 10 --cmd "$train_cmd" \
 utils/fix_data_dir.sh data/50vs20_PLM_soft_scan_100_voting
 
 
-sid/nnet3/xvector/extract_xvectors.sh --cmd "$train_cmd --mem 4G" --nj 10 \
+sid/nnet3/xvector/extract_xvectors.sh --cmd "$train_cmd --mem 4G" --nj 30 \
   $nnet_dir data/50vs20_PLM_soft_scan_100_voting \
   $new_plda_dir
 
